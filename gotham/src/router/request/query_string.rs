@@ -47,7 +47,7 @@ impl StaticResponseExtender for NoopQueryStringExtractor {
 /// Represents an error in coverting a key=value pair from a `Request` query string into a
 /// type safe value.
 pub struct FromQueryStringError {
-    description: String,
+    pub description: String,
 }
 
 impl std::fmt::Display for FromQueryStringError {
@@ -59,6 +59,15 @@ impl std::fmt::Display for FromQueryStringError {
 impl Error for FromQueryStringError {
     fn description(&self) -> &str {
         &self.description
+    }
+}
+
+impl FromQueryStringError {
+    /// Construct a new FromQueryStringError.
+    pub fn new(description: &str) -> FromQueryStringError {
+        FromQueryStringError {
+            description: description.to_string(),
+        }
     }
 }
 
